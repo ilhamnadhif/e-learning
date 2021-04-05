@@ -9,5 +9,6 @@ router.post("/paket", userController.createUserPaket)
 router.get("/", userController.showAllUser)
 router.get("/:id", userController.findOneUser)
 router.put("/:id", userController.editUserBiodata)
+router.post("/login", userController.loginUser)
 
 module.exports = router;

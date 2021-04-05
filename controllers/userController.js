@@ -1,15 +1,20 @@
+const bcrypt = require("bcryptjs");
 const db = require("../models");
-const biodata = require("../models/biodata");
 
 module.exports = {
-  createUser: (req, res) => {
-    db.User.create({
+  createUser: async (req, res) => {
+    const emailExist = await db.User.findOne({
+      where: { email: req.body.email },
+    });
+    if (emailExist) return res.status(400).send("email already exists");
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(req.body.password, salt);
+    const user = await db.User.create({
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password,
-    }).then((user) => {
-      res.json(user);
+      password: hashPassword,
     });
+    res.json(user);
   },
   createUserBiodata: (req, res) => {
     db.Biodata.create({
@@ -105,5 +110,14 @@ module.exports = {
     ).then((biodata) => {
       res.send("succes update biodata");
     });
+  },
+  loginUser: async (req, res) => {
+    const user = await db.User.findOne({ where: { email: req.body.email } });
+    if (!user) return res.status(400).send("email is not found");
+
+    const validPass = await bcrypt.compare(req.body.password, user.password);
+    if (!validPass) return res.status(400).send("invalid password");
+    
+    res.redirect("/api/v1/user/" + user.id);
   },
 };
