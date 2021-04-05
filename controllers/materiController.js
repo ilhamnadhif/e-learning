@@ -55,16 +55,11 @@ module.exports = {
       res.send("succes update");
     });
   },
-  // deleteMateri: (req, res) => {
-  //   db.Materi.findOne({ where: { id: req.params.id } })
-  //   .then((result) => {
-  //     // res.json(result)
-  //     // db.Materi.destroy({
-  //     //   where: { id: result.id },
-  //     // })
-  //     db.Bab.destroy({
-  //       where: {materi_id: result.id}
-  //     }).then(haha=>res.send("succes"))
-  //   });
-  // },
+  deleteMateri: (req, res) => {
+    db.Materi.destroy({
+      where: { id: req.params.id },
+    }).then((materi) => {
+      res.send("delete succes")
+    });
+  },
 };

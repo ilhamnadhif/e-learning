@@ -30,4 +30,11 @@ module.exports = {
       res.send("succes update");
     });
   },
+  deleteSubBab: (req, res) => {
+    db.Bab.destroy({
+      where: { id: req.params.id },
+    }).then((subbab) => {
+      res.send("delete succes")
+    });
+  }
 };

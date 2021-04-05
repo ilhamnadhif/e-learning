@@ -4,6 +4,7 @@ const biodata = require("../models/biodata");
 module.exports = {
   createUser: (req, res) => {
     db.User.create({
+      username: req.body.username,
       email: req.body.email,
       password: req.body.password,
     }).then((user) => {
