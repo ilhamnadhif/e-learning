@@ -10,7 +10,7 @@ module.exports = {
       res.json(paket);
     });
   },
-  createMateri: (req, res) => {
+  createPaketMateri: (req, res) => {
     db.PaketMateri.create({
       PaketId: req.body.PaketId,
       MateriId: req.body.MateriId,
@@ -18,7 +18,7 @@ module.exports = {
       res.json(materi);
     });
   },
-  showAllMateri: (req, res) => {
+  showAllPaket: (req, res) => {
     db.Paket.findAll({
       include: [
         {
@@ -39,7 +39,7 @@ module.exports = {
       res.json(pakets);
     });
   },
-  findOneMateri: (req, res) => {
+  findOnePaket: (req, res) => {
     db.Paket.findOne({
       include: [
         {
@@ -59,6 +59,22 @@ module.exports = {
       where: { id: req.params.id}
     }).then((paket) => {
       res.json(paket);
+    });
+  },
+  editPaket: (req, res) => {
+    db.Paket.update(
+      {
+        nama: req.body.nama,
+        harga: req.body.harga,
+        durasi: req.body.durasi,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    ).then((paket) => {
+      res.send("succes update paket");
     });
   }
 };
