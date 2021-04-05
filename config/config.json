@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "ilham",
+    "password": "Ilham12345",
+    "database": "e-learning",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "ilham",
+    "password": "Ilham12345",
+    "database": "e-learning_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "ilham",
+    "password": "Ilham12345",
+    "database": "e-learning_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
