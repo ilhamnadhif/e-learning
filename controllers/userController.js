@@ -33,6 +33,15 @@ module.exports = {
       PaketId: req.body.PaketId,
     }).then((result) => {
       res.json(result);
+      db.Paket.findOne({ where: { id: result.PaketId } }).then((paket) => {
+        let leftTime = paket.durasi;
+        let month = leftTime * 2
+        setTimeout(() => {
+          db.UserPaket.destroy({
+            where: { UserId: result.UserId, PaketId: result.PaketId },
+          });
+        }, month);
+      });
     });
   },
   showAllUser: (req, res) => {
@@ -117,7 +126,9 @@ module.exports = {
 
     const validPass = await bcrypt.compare(req.body.password, user.password);
     if (!validPass) return res.status(400).send("invalid password");
-    
+
     res.redirect("/api/v1/user/" + user.id);
   },
+
+  subscibe: (req, res, next) => {},
 };
