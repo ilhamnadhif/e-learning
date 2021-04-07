@@ -56,7 +56,7 @@ module.exports = {
           ],
         },
       ],
-      where: { id: req.params.id}
+      where: { id: req.params.id },
     }).then((paket) => {
       res.json(paket);
     });
@@ -76,5 +76,9 @@ module.exports = {
     ).then((paket) => {
       res.send("succes update paket");
     });
-  }
+  },
+  deletePaket: async (req, res) => {
+    await db.Paket.destroy({ where: { id: req.params.id } });
+    res.send("succes delete paket");
+  },
 };

@@ -35,7 +35,7 @@ module.exports = {
       res.json(result);
       db.Paket.findOne({ where: { id: result.PaketId } }).then((paket) => {
         let leftTime = paket.durasi;
-        let month = leftTime * 2
+        let month = leftTime * 2;
         setTimeout(() => {
           db.Subscribe.destroy({
             where: { UserId: result.UserId, PaketId: result.PaketId },
@@ -129,6 +129,4 @@ module.exports = {
 
     res.redirect("/api/v1/user/" + user.id);
   },
-
-  subscibe: (req, res, next) => {},
 };

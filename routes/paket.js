@@ -8,5 +8,6 @@ router.post("/materi", paketController.createPaketMateri)
 router.get("/", paketController.showAllPaket)
 router.get("/:id", paketController.findOnePaket)
 router.put("/:id", paketController.editPaket)
+router.delete("/:id", paketController.deletePaket)
 
 module.exports = router;
