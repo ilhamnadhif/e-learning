@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasOne(models.Biodata, {foreignKey: "user_id"})
-      User.belongsToMany(models.Paket, { through: "UserPaket" })
+      User.belongsToMany(models.Paket, { through: "Subscribe" })
     }
   };
   User.init({

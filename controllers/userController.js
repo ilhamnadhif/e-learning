@@ -28,7 +28,7 @@ module.exports = {
     });
   },
   createUserPaket: (req, res) => {
-    db.UserPaket.create({
+    db.Subscribe.create({
       UserId: req.body.UserId,
       PaketId: req.body.PaketId,
     }).then((result) => {
@@ -37,7 +37,7 @@ module.exports = {
         let leftTime = paket.durasi;
         let month = leftTime * 2
         setTimeout(() => {
-          db.UserPaket.destroy({
+          db.Subscribe.destroy({
             where: { UserId: result.UserId, PaketId: result.PaketId },
           });
         }, month);
