@@ -11,14 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Paket.belongsToMany(models.User, { through: "Subscribe" })
-      Paket.belongsToMany(models.Materi, { through: "PaketMateri" })
+      Paket.belongsToMany(models.User, { through: "Subscribe", foreignKey: "paketId" })
+      Paket.belongsToMany(models.Materi, { through: "PaketMateri", foreignKey: "paketId" })
     }
   };
   Paket.init({
-    nama: DataTypes.STRING,
-    harga: DataTypes.INTEGER,
-    durasi: DataTypes.INTEGER
+    name: DataTypes.STRING,
+    price: DataTypes.INTEGER,
+    duration: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Paket',

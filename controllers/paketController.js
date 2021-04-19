@@ -1,25 +1,25 @@
 const db = require("../models");
 
 module.exports = {
-  createPaket: (req, res) => {
-    db.Paket.create({
-      nama: req.body.nama,
-      harga: req.body.harga,
-      durasi: req.body.durasi,
-    }).then((paket) => {
-      res.json(paket);
+  createPaket: async (req, res) => {
+    const { name, price, duration } = req.body;
+    const savedPaket = await db.Paket.create({
+      name: name,
+      price: price,
+      duration: duration,
     });
+    res.json(savedPaket);
   },
-  createPaketMateri: (req, res) => {
-    db.PaketMateri.create({
-      PaketId: req.body.PaketId,
-      MateriId: req.body.MateriId,
-    }).then((materi) => {
-      res.json(materi);
+  createPaketMateri: async (req, res) => {
+    const { paketId, materiId } = req.body;
+    const savedPaketMateri = await db.PaketMateri.create({
+      paketId: paketId,
+      materiId: materiId,
     });
+    res.json(savedPaketMateri);
   },
-  showAllPaket: (req, res) => {
-    db.Paket.findAll({
+  showAllPaket: async (req, res) => {
+    const findAllPaket = await db.Paket.findAll({
       include: [
         {
           model: db.Materi,
@@ -35,12 +35,11 @@ module.exports = {
           ],
         },
       ],
-    }).then((pakets) => {
-      res.json(pakets);
     });
+    res.json(findAllPaket);
   },
-  findOnePaket: (req, res) => {
-    db.Paket.findOne({
+  findOnePaket: async (req, res) => {
+    const findOnePaket = await db.Paket.findOne({
       include: [
         {
           model: db.Materi,
@@ -57,25 +56,24 @@ module.exports = {
         },
       ],
       where: { id: req.params.id },
-    }).then((paket) => {
-      res.json(paket);
     });
+    res.json(findOnePaket);
   },
-  editPaket: (req, res) => {
-    db.Paket.update(
+  editPaket: async (req, res) => {
+    const { name, price, duration } = req.body;
+    await db.Paket.update(
       {
-        nama: req.body.nama,
-        harga: req.body.harga,
-        durasi: req.body.durasi,
+        name: name,
+        price: price,
+        duration: duration,
       },
       {
         where: {
           id: req.params.id,
         },
       }
-    ).then((paket) => {
-      res.send("succes update paket");
-    });
+    );
+    res.send("succes update paket");
   },
   deletePaket: async (req, res) => {
     await db.Paket.destroy({ where: { id: req.params.id } });

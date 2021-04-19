@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Subscribe.init({
-    UserId: DataTypes.INTEGER,
-    PaketId: DataTypes.INTEGER
+    userId: DataTypes.INTEGER,
+    paketId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Subscribe',

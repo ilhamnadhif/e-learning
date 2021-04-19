@@ -1,15 +1,14 @@
 const db = require("../models");
 
 module.exports = {
-  createMateri: (req, res) => {
-    db.Materi.create({
-      materi: req.body.materi,
-    }).then((materi) => {
-      res.json(materi);
+  createMateri: async (req, res) => {
+    const savedMateri = await db.Materi.create({
+      title: req.body.title,
     });
+    res.json(savedMateri);
   },
-  showAllMateri: (req, res) => {
-    db.Materi.findAll({
+  showAllMateri: async (req, res) => {
+    const findAllMateris = await db.Materi.findAll({
       include: [
         {
           model: db.Bab,
@@ -20,12 +19,11 @@ module.exports = {
           ],
         },
       ],
-    }).then((materis) => {
-      res.json(materis);
     });
+    res.json(findAllMateris);
   },
-  findOneMateri: (req, res) => {
-    db.Materi.findOne({
+  findOneMateri: async (req, res) => {
+    const findOneMateri = await db.Materi.findOne({
       include: [
         {
           model: db.Bab,
@@ -37,29 +35,26 @@ module.exports = {
         },
       ],
       where: { id: req.params.id },
-    }).then((materi) => {
-      res.json(materi);
     });
+    res.json(findOneMateri);
   },
-  editMateri: (req, res) => {
-    db.Materi.update(
+  editMateri: async (req, res) => {
+    await db.Materi.update(
       {
-        materi: req.body.materi,
+        title: req.body.title,
       },
       {
         where: {
           id: req.params.id,
         },
       }
-    ).then((materi) => {
-      res.send("succes update");
-    });
+    );
+    res.send("succes update materi");
   },
-  deleteMateri: (req, res) => {
-    db.Materi.destroy({
+  deleteMateri: async (req, res) => {
+    await db.Materi.destroy({
       where: { id: req.params.id },
-    }).then((materi) => {
-      res.send("delete succes")
     });
+    res.send("delete materi succes");
   },
 };

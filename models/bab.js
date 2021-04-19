@@ -11,13 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Bab.belongsTo(models.Materi, {foreignKey: "materi_id"})
-      Bab.hasMany(models.SubBab, {foreignKey: "bab_id"})
+      Bab.belongsTo(models.Materi, {foreignKey: "materiId"})
+      Bab.hasMany(models.SubBab, {foreignKey: "babId"})
     }
   };
   Bab.init({
-    bab: DataTypes.STRING,
-    materi_id: DataTypes.INTEGER
+    materiId: DataTypes.INTEGER,
+    title: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Bab',

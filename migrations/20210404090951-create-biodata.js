@@ -8,18 +8,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: "Users",
-          },
-        },
       },
       name: {
         type: Sequelize.STRING
       },
-      addres: {
+      address: {
         type: Sequelize.STRING
       },
       gender: {

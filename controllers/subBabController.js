@@ -1,40 +1,40 @@
 const db = require("../models");
 
 module.exports = {
-  createSubBab: (req, res) => {
-    db.SubBab.create({
-      bab_id: req.body.bab_id,
-      subbab: req.body.subbab,
-    }).then((subbab) => {
-      res.json(subbab);
+  createSubBab: async (req, res) => {
+    const { babId, title, body } = req.body;
+    const savedSubbab = await db.SubBab.create({
+      babId: babId,
+      title: title,
+      body: body,
     });
+    res.json(savedSubbab);
   },
-  findOneSubBab: (req, res) => {
-    db.SubBab.findOne({
+  findOneSubBab: async (req, res) => {
+    const findOneSubbab = await db.SubBab.findOne({
       where: { id: req.params.id },
-    }).then((subbab) => {
-      res.json(subbab);
     });
+    res.json(findOneSubbab);
   },
-  editSubBab: (req, res) => {
-    db.SubBab.update(
+  editSubBab: async (req, res) => {
+    const { title, body } = req.body;
+    await db.SubBab.update(
       {
-        subbab: req.body.subbab,
+        title: title,
+        body: body,
       },
       {
         where: {
           id: req.params.id,
         },
       }
-    ).then((subbab) => {
-      res.send("succes update");
-    });
+    );
+    res.send("succes update subbab");
   },
-  deleteSubBab: (req, res) => {
-    db.Bab.destroy({
+  deleteSubBab: async (req, res) => {
+    await db.SubBab.destroy({
       where: { id: req.params.id },
-    }).then((subbab) => {
-      res.send("delete succes")
     });
-  }
+    res.send("delete subbab succes");
+  },
 };

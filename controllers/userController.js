@@ -9,43 +9,44 @@ module.exports = {
     if (emailExist) return res.status(400).send("email already exists");
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(req.body.password, salt);
-    const user = await db.User.create({
-      username: req.body.username,
-      email: req.body.email,
+    const { username, email } = req.body;
+    const savedUser = await db.User.create({
+      username: username,
+      email: email,
       password: hashPassword,
     });
-    res.json(user);
+    res.json(savedUser);
   },
-  createUserBiodata: (req, res) => {
-    db.Biodata.create({
-      user_id: req.body.user_id,
-      name: req.body.name,
-      addres: req.body.addres,
-      gender: req.body.gender,
-      age: req.body.age,
-    }).then((biodata) => {
-      res.json(biodata);
+  createUserBiodata: async (req, res) => {
+    const { userId, name, address, gender, age } = req.body;
+    const svaedBiodata = await db.Biodata.create({
+      userId: userId,
+      name: name,
+      address: address,
+      gender: gender,
+      age: age,
     });
+    res.json(svaedBiodata);
   },
-  createUserPaket: (req, res) => {
-    db.Subscribe.create({
-      UserId: req.body.UserId,
-      PaketId: req.body.PaketId,
-    }).then((result) => {
-      res.json(result);
-      db.Paket.findOne({ where: { id: result.PaketId } }).then((paket) => {
-        let leftTime = paket.durasi;
-        let month = leftTime * 2;
-        setTimeout(() => {
-          db.Subscribe.destroy({
-            where: { UserId: result.UserId, PaketId: result.PaketId },
-          });
-        }, month);
+  createUserPaket: async (req, res) => {
+    const { userId, paketId } = req.body;
+    const subscribe = await db.Subscribe.create({
+      userId: userId,
+      paketId: paketId,
+    });
+    res.json(subscribe);
+    const paket = await db.Paket.findOne({ where: { id: subscribe.paketId } });
+
+    let leftTime = paket.duration;
+    let month = leftTime * 3;
+    setTimeout(() => {
+      db.Subscribe.destroy({
+        where: { userId: subscribe.userId, paketId: subscribe.paketId },
       });
-    });
+    }, month);
   },
-  showAllUser: (req, res) => {
-    db.User.findAll({
+  showAllUser: async (req, res) => {
+    const findAllUser = await db.User.findAll({
       include: [
         {
           model: db.Biodata,
@@ -69,12 +70,11 @@ module.exports = {
           ],
         },
       ],
-    }).then((users) => {
-      res.json(users);
     });
+    res.json(findAllUser);
   },
-  findOneUser: (req, res) => {
-    db.User.findOne({
+  findOneUser: async (req, res) => {
+    const findOneUser = await db.User.findOne({
       include: [
         {
           model: db.Biodata,
@@ -99,26 +99,25 @@ module.exports = {
         },
       ],
       where: { id: req.params.id },
-    }).then((user) => {
-      res.json(user);
     });
+    res.json(findOneUser);
   },
-  editUserBiodata: (req, res) => {
-    db.Biodata.update(
+  editUserBiodata: async (req, res) => {
+    const { name, address, gender, age } = req.body;
+    await db.Biodata.update(
       {
-        name: req.body.name,
-        addres: req.body.addres,
-        gender: req.body.gender,
-        age: req.body.age,
+        name: name,
+        address: address,
+        gender: gender,
+        age: age,
       },
       {
         where: {
           id: req.params.id,
         },
       }
-    ).then((biodata) => {
-      res.send("succes update biodata");
-    });
+    );
+    res.send("succes update biodata");
   },
   loginUser: async (req, res) => {
     const user = await db.User.findOne({ where: { email: req.body.email } });

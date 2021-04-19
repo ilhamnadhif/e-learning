@@ -11,12 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Materi.hasMany(models.Bab, {foreignKey: "materi_id"})
-      Materi.belongsToMany(models.Paket, { through: "PaketMateri" })
+      Materi.hasMany(models.Bab, {foreignKey: "materiId"})
+      Materi.belongsToMany(models.Paket, { through: "PaketMateri", foreignKey: "materiId" })
     }
   };
   Materi.init({
-    materi: DataTypes.STRING
+    title: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Materi',

@@ -1,45 +1,42 @@
 const db = require("../models");
 
 module.exports = {
-  createBab: (req, res) => {
-    db.Bab.create({
-      bab: req.body.bab,
-      materi_id: req.body.materi_id,
-    }).then((bab) => {
-      res.json(bab);
+  createBab: async (req, res) => {
+    const { materiId, title } = req.body;
+    const savedBab = await db.Bab.create({
+      materiId: materiId,
+      title: title,
     });
+    res.json(savedBab);
   },
-  findOneBab: (req, res) => {
-    db.Bab.findOne({
+  findOneBab: async (req, res) => {
+    const findOneBab = await db.Bab.findOne({
       include: [
         {
           model: db.SubBab,
         },
       ],
       where: { id: req.params.id },
-    }).then((bab) => {
-      res.json(bab);
     });
+    res.json(findOneBab);
   },
-  editBab: (req, res) => {
-    db.Bab.update(
+  editBab: async (req, res) => {
+    await db.Bab.update(
       {
-        bab: req.body.bab,
+        title: req.body.title,
       },
       {
         where: {
           id: req.params.id,
         },
       }
-    ).then((bab) => {
-      res.send("succes update")
-    });
+    );
+    res.send("succes update bab");
   },
-  deleteBab: (req, res) => {
-    db.Bab.destroy({
+  deleteBab: async (req, res) => {
+    await db.Bab.destroy({
       where: { id: req.params.id },
-    }).then((bab) => {
-      res.send("delete succes")
     });
-  }
+    res.send("delete bab succes");
+  },
 };

@@ -8,16 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      bab: {
-        type: Sequelize.STRING,
-      },
-      materi_id: {
+      materiId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: "Materis",
-          },
-        },
+      },
+      title: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

@@ -8,15 +8,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      bab_id: {
+      babId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: "Babs",
-          },
-        },
       },
-      subbab: {
+      title: {
+        type: Sequelize.STRING,
+      },
+      body: {
         type: Sequelize.STRING,
       },
       createdAt: {

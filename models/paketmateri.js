@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   PaketMateri.init({
-    PaketId: DataTypes.INTEGER,
-    MateriId: DataTypes.INTEGER
+    paketId: DataTypes.INTEGER,
+    materiId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'PaketMateri',
