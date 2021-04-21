@@ -29,14 +29,14 @@ module.exports = {
     res.json(svaedBiodata);
   },
   createUserPaket: async (req, res) => {
-    const { userId, pilih_paket, gambar_bayar } = req.body;
-    const subscribe = await db.Subscribe.create({
+    const { userId, paketId, gambar_bayar } = req.body;
+    const payment = await db.Payment.create({
       userId: userId,
-      pilih_paket: pilih_paket,
-      gambar_bayar: "gambar.jpg",
+      paketId: paketId,
+      bukti_bayar: "gambar.jpg",
       status: "belum diterima",
     });
-    res.json(subscribe);
+    res.json(payment);
     // const paket = await db.Paket.findOne({ where: { id: subscribe.paketId } });
 
     // let leftTime = paket.duration;

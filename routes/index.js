@@ -6,13 +6,13 @@ const babRouter = require("./bab");
 const subBabRouter = require("./subBab");
 const userRouter = require("./user");
 const paketRouter = require("./paket");
-const subscribeRouter = require("./subscribe");
+const paymentRouter = require("./payment");
 
 router.use("/materi", materiRouter);
 router.use("/bab", babRouter);
 router.use("/subbab", subBabRouter);
 router.use("/user", userRouter);
 router.use("/paket", paketRouter);
-router.use("/subscribe", subscribeRouter);
+router.use("/payment", paymentRouter);
 
 module.exports = router;
