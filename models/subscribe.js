@@ -15,7 +15,10 @@ module.exports = (sequelize, DataTypes) => {
   };
   Subscribe.init({
     userId: DataTypes.INTEGER,
-    paketId: DataTypes.INTEGER
+    paketId: DataTypes.INTEGER,
+    pilih_paket: DataTypes.INTEGER,
+    gambar_bayar: DataTypes.STRING,
+    status: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Subscribe',

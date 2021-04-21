@@ -14,6 +14,15 @@ module.exports = {
       paketId: {
         type: Sequelize.INTEGER
       },
+      pilih_paket: {
+        type: Sequelize.INTEGER
+      },
+      gambar_bayar: {
+        type: Sequelize.STRING
+      },
+      status: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

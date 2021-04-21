@@ -29,21 +29,23 @@ module.exports = {
     res.json(svaedBiodata);
   },
   createUserPaket: async (req, res) => {
-    const { userId, paketId } = req.body;
+    const { userId, pilih_paket, gambar_bayar } = req.body;
     const subscribe = await db.Subscribe.create({
       userId: userId,
-      paketId: paketId,
+      pilih_paket: pilih_paket,
+      gambar_bayar: "gambar.jpg",
+      status: "belum diterima",
     });
     res.json(subscribe);
-    const paket = await db.Paket.findOne({ where: { id: subscribe.paketId } });
+    // const paket = await db.Paket.findOne({ where: { id: subscribe.paketId } });
 
-    let leftTime = paket.duration;
-    let month = leftTime * 3;
-    setTimeout(() => {
-      db.Subscribe.destroy({
-        where: { userId: subscribe.userId, paketId: subscribe.paketId },
-      });
-    }, month);
+    // let leftTime = paket.duration;
+    // let month = leftTime * 3;
+    // setTimeout(() => {
+    //   db.Subscribe.destroy({
+    //     where: { userId: subscribe.userId, paketId: subscribe.paketId },
+    //   });
+    // }, month);
   },
   showAllUser: async (req, res) => {
     const findAllUser = await db.User.findAll({
