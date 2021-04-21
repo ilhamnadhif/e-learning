@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasOne(models.Biodata, {foreignKey: "userId"})
       User.belongsToMany(models.Paket, { through: "Subscribe", foreignKey: "userId" })
+      //
+      User.hasOne(models.Payment, {foreignKey: "userId"})
     }
   };
   User.init({

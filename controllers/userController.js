@@ -1,7 +1,28 @@
+const path = require("path");
+const fs = require("fs");
 const bcrypt = require("bcryptjs");
+const multer = require("multer");
 const db = require("../models");
 
+const storage = multer.diskStorage({
+  destination: function (request, file, callback) {
+    callback(null, "./images");
+  },
+
+  filename: function (request, file, callback) {
+    callback(null, Date.now() + "-" + file.originalname);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+});
+
 module.exports = {
+  upload: multer({
+    storage: storage,
+  }),
+
   createUser: async (req, res) => {
     const emailExist = await db.User.findOne({
       where: { email: req.body.email },
@@ -30,22 +51,14 @@ module.exports = {
   },
   createUserPaket: async (req, res) => {
     const { userId, paketId, gambar_bayar } = req.body;
+    const image = req.file.filename;
     const payment = await db.Payment.create({
       userId: userId,
       paketId: paketId,
-      bukti_bayar: "gambar.jpg",
+      bukti_bayar: image,
       status: "belum diterima",
     });
     res.json(payment);
-    // const paket = await db.Paket.findOne({ where: { id: subscribe.paketId } });
-
-    // let leftTime = paket.duration;
-    // let month = leftTime * 3;
-    // setTimeout(() => {
-    //   db.Subscribe.destroy({
-    //     where: { userId: subscribe.userId, paketId: subscribe.paketId },
-    //   });
-    // }, month);
   },
   showAllUser: async (req, res) => {
     const findAllUser = await db.User.findAll({

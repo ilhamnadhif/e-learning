@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Paket.belongsToMany(models.User, { through: "Subscribe", foreignKey: "paketId" })
       Paket.belongsToMany(models.Materi, { through: "PaketMateri", foreignKey: "paketId" })
+      //
+      Paket.hasOne(models.Payment, {foreignKey: "paketId"})
     }
   };
   Paket.init({
