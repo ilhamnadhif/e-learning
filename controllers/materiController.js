@@ -18,6 +18,14 @@ module.exports = {
             },
           ],
         },
+        {
+          model: db.QuizQuestion,
+          include: [
+            {
+              model: db.QuestionOption
+            },
+          ]
+        },
       ],
     });
     res.json(findAllMateris);
