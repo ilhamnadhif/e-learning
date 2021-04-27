@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       User.belongsToMany(models.Paket, { through: "Subscribe", foreignKey: "userId" })
       //
       User.hasOne(models.Payment, {foreignKey: "userId"})
+      User.hasMany(models.QuizUserAnswer, {foreignKey: "userId"})
     }
   };
   User.init({
