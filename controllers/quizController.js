@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const db = require("../models");
 
 module.exports = {
@@ -11,10 +12,10 @@ module.exports = {
   },
   findOneQuestion: async (req, res) => {
     const findOneQuestion = await db.QuizQuestion.findOne({
-      include:[
+      include: [
         {
-          model: db.QuestionOption
-        }
+          model: db.QuestionOption,
+        },
       ],
       where: { id: req.params.id },
     });
@@ -47,7 +48,25 @@ module.exports = {
       questionId: questionId,
       option: option,
       is_correct: is_correct,
-    })
-    res.json(createOpt)
+    });
+    res.json(createOpt);
+  },
+  userAnswer: async (req, res) => {
+    const { userId, questionId, optionId } = req.body;
+    const iscorrect = await db.QuestionOption.findOne({
+      where: {
+        [Op.and]: [
+          { questionId: questionId },
+          { is_correct: "true" || "TRUE" },
+        ],
+      },
+    });
+    const answer = await db.QuizUserAnswer.create({
+      userId: userId,
+      questionId: questionId,
+      optionId: optionId,
+      is_correct: iscorrect.id,
+    });
+    res.json(answer);
   },
 };

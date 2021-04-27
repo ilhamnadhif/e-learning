@@ -11,12 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      QuizUserAnswer.belongsTo(models.User, {foreignKey: "userId"})
+      QuizUserAnswer.belongsTo(models.QuizQuestion, {foreignKey: "questionId"})
+      QuizUserAnswer.belongsTo(models.QuestionOption, {foreignKey: "optionId", as:"option"})
+      QuizUserAnswer.belongsTo(models.QuestionOption, {foreignKey: "is_correct", as: "iscorrect"})
     }
   };
   QuizUserAnswer.init({
     userId: DataTypes.INTEGER,
     questionId: DataTypes.INTEGER,
-    optionId: DataTypes.INTEGER
+    optionId: DataTypes.INTEGER,
+    is_correct: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'QuizUserAnswer',

@@ -11,4 +11,8 @@ router.delete("/:id", quizController.deleteQuestion)
 // question options
 router.post("/option", quizController.createQuestOptn)
 
+// user answer
+router.post("/answer", quizController.userAnswer)
+
+
 module.exports = router;

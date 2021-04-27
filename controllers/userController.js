@@ -67,6 +67,22 @@ module.exports = {
           model: db.Biodata,
         },
         {
+          model: db.QuizUserAnswer,
+          include: [
+            {
+              model: db.QuizQuestion
+            },
+            {
+              model: db.QuestionOption,
+              as: "option"
+            },
+            {
+              model: db.QuestionOption,
+              as: "iscorrect"
+            },
+          ]
+        },
+        {
           model: db.Paket,
           include: [
             {
@@ -93,6 +109,22 @@ module.exports = {
       include: [
         {
           model: db.Biodata,
+        },
+        {
+          model: db.QuizUserAnswer,
+          include: [
+            {
+              model: db.QuizQuestion
+            },
+            {
+              model: db.QuestionOption,
+              as: "option"
+            },
+            {
+              model: db.QuestionOption,
+              as: "iscorrect"
+            },
+          ]
         },
         {
           model: db.Paket,

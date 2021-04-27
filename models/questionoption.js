@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       QuestionOption.belongsTo(models.QuizQuestion, {foreignKey: "questionId"})
+      QuestionOption.hasOne(models.QuizUserAnswer, {foreignKey: "optionId"})
+      QuestionOption.hasOne(models.QuizUserAnswer, {foreignKey: "is_correct"})
     }
   };
   QuestionOption.init({

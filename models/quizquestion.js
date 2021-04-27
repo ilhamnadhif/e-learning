@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       QuizQuestion.belongsTo(models.Materi, {foreignKey: "materiId"})
       QuizQuestion.hasMany(models.QuestionOption, {foreignKey: "questionId"})
+      QuizQuestion.hasOne(models.QuizUserAnswer, {foreignKey: "questionId"})
     }
   };
   QuizQuestion.init({

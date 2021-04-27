@@ -17,6 +17,9 @@ module.exports = {
       optionId: {
         type: Sequelize.INTEGER
       },
+      is_correct: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
