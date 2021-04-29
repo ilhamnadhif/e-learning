@@ -16,7 +16,7 @@ atau
 yarn install
 ```
 
-## Create dabatabse
+## Create Dabatabse
 
 ```bash
 npx sequelize-cli db:create
@@ -28,7 +28,7 @@ atau
 yarn sequelize-cli db:create
 ```
 
-## Migration table
+## Migration Table
 
 ```bash
 npx sequelize-cli db:migrate
@@ -39,6 +39,10 @@ atau
 ```bash
 yarn sequelize-cli db:migrate
 ```
+
+## Design Database
+
+design database [disini](https://dbdiagram.io/d/608a296bb29a09603d129f58)
 
 ## Contributing
 
