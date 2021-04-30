@@ -15,6 +15,14 @@ module.exports = {
         {
           model: db.SubBab,
         },
+        {
+          model: db.QuizQuestion,
+          include: [
+            {
+              model: db.QuestionOption
+            },
+          ]
+        },
       ],
       where: { id: req.params.id },
     });

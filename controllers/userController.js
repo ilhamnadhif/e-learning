@@ -50,7 +50,7 @@ module.exports = {
     res.json(svaedBiodata);
   },
   createUserPaket: async (req, res) => {
-    const { userId, paketId, gambar_bayar } = req.body;
+    const { userId, paketId } = req.body;
     const image = req.file.filename;
     const payment = await db.Payment.create({
       userId: userId,
@@ -93,6 +93,14 @@ module.exports = {
                   include: [
                     {
                       model: db.SubBab,
+                    },
+                    {
+                      model: db.QuizQuestion,
+                      include: [
+                        {
+                          model: db.QuestionOption
+                        },
+                      ]
                     },
                   ],
                 },
@@ -137,6 +145,14 @@ module.exports = {
                   include: [
                     {
                       model: db.SubBab,
+                    },
+                    {
+                      model: db.QuizQuestion,
+                      include: [
+                        {
+                          model: db.QuestionOption
+                        },
+                      ]
                     },
                   ],
                 },

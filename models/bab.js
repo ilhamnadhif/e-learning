@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Bab.belongsTo(models.Materi, {foreignKey: "materiId"})
       Bab.hasMany(models.SubBab, {foreignKey: "babId"})
+      Bab.hasMany(models.QuizQuestion, {foreignKey: "babId"})
     }
   };
   Bab.init({

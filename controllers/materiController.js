@@ -16,15 +16,15 @@ module.exports = {
             {
               model: db.SubBab,
             },
-          ],
-        },
-        {
-          model: db.QuizQuestion,
-          include: [
             {
-              model: db.QuestionOption
+              model: db.QuizQuestion,
+              include: [
+                {
+                  model: db.QuestionOption
+                },
+              ]
             },
-          ]
+          ],
         },
       ],
     });
@@ -38,6 +38,14 @@ module.exports = {
           include: [
             {
               model: db.SubBab,
+            },
+            {
+              model: db.QuizQuestion,
+              include: [
+                {
+                  model: db.QuestionOption
+                },
+              ]
             },
           ],
         },

@@ -5,7 +5,7 @@ module.exports = {
   createQuestion: async (req, res) => {
     const { materiId, question } = req.body;
     const savedQuestion = await db.QuizQuestion.create({
-      materiId: materiId,
+      babId: materiId,
       question: question,
     });
     res.json(savedQuestion);

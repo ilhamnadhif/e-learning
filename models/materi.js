@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Materi.hasMany(models.Bab, {foreignKey: "materiId"})
-      Materi.hasMany(models.QuizQuestion, {foreignKey: "materiId"})
       Materi.belongsToMany(models.Paket, { through: "PaketMateri", foreignKey: "materiId" })
     }
   };

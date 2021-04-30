@@ -11,13 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      QuizQuestion.belongsTo(models.Materi, {foreignKey: "materiId"})
+      QuizQuestion.belongsTo(models.Bab, {foreignKey: "babId"})
       QuizQuestion.hasMany(models.QuestionOption, {foreignKey: "questionId"})
       QuizQuestion.hasOne(models.QuizUserAnswer, {foreignKey: "questionId"})
     }
   };
   QuizQuestion.init({
-    materiId: DataTypes.INTEGER,
+    babId: DataTypes.INTEGER,
     question: DataTypes.STRING
   }, {
     sequelize,
