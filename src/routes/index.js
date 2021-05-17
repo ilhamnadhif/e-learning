@@ -1,5 +1,9 @@
+const path = require('path');
 const express = require("express");
 const router = express.Router();
+
+// view image
+router.use('/images', express.static(path.join(__dirname, '../../images')))
 
 const materiRouter = require("./materi");
 const babRouter = require("./bab");

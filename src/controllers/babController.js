@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../db/models");
 
 module.exports = {
   createBab: async (req, res) => {

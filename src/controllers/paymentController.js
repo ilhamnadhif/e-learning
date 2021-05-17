@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const bcrypt = require("bcryptjs");
-const db = require("../models");
+const db = require("../db/models");
 
 module.exports = {
   findAllSubscribe: async (req, res) => {
@@ -64,7 +64,7 @@ module.exports = {
 const removeImage = (filePath) => {
   // console.log('filePath', filePath)
   // console.log('__dirname', __dirname)
-  filePath = path.join(__dirname, "../images/", filePath);
+  filePath = path.join(__dirname, "../../images/", filePath);
   console.log(filePath);
   fs.unlink(filePath, (err) => console.log(err));
 };
