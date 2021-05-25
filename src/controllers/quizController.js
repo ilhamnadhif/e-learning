@@ -3,9 +3,9 @@ const db = require("../db/models");
 
 module.exports = {
   createQuestion: async (req, res) => {
-    const { materiId, question } = req.body;
+    const { babId, question } = req.body;
     const savedQuestion = await db.QuizQuestion.create({
-      babId: materiId,
+      babId: babId,
       question: question,
     });
     res.json(savedQuestion);
@@ -57,7 +57,7 @@ module.exports = {
       where: {
         [Op.and]: [
           { questionId: questionId },
-          { is_correct: "true" || "TRUE" },
+          { is_correct: "true" || "TRUE" || "True"},
         ],
       },
     });

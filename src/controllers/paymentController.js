@@ -8,13 +8,21 @@ module.exports = {
     const payments = await db.Payment.findAll({
       include: [{ model: db.User }, { model: db.Paket }],
     });
-    res.json(payments);
+    let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl.split("/").slice(0,3).join("/") + "/images/";
+    const pay = [];
+    payments.forEach(p => {
+      p.bukti_bayar  = fullUrl + p.bukti_bayar
+      pay.push(p);
+    });
+    res.json(pay);
   },
   findOneSubscribe: async (req, res) => {
     const payment = await db.Payment.findOne({
       include: [{ model: db.User }, { model: db.Paket }],
       where: { id: req.params.id },
     });
+    let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl.split("/").slice(0,3).join("/") + "/images/";
+    payment.bukti_bayar = fullUrl + payment.bukti_bayar;
     res.json(payment);
   },
   acceptSubscription: async (req, res) => {
