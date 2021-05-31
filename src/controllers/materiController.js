@@ -4,6 +4,7 @@ module.exports = {
   createMateri: async (req, res) => {
     const savedMateri = await db.Materi.create({
       title: req.body.title,
+      desc: req.body.desc,
     });
     res.json(savedMateri);
   },

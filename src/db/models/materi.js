@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Materi.init({
-    title: DataTypes.STRING
+    title: DataTypes.STRING,
+    desc: DataTypes.TEXT
   }, {
     sequelize,
     modelName: 'Materi',

@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   SubBab.init({
     babId: DataTypes.INTEGER,
     title: DataTypes.STRING,
-    body: DataTypes.STRING,
+    body: DataTypes.TEXT,
   }, {
     sequelize,
     modelName: 'SubBab',
