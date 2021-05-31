@@ -1,20 +1,28 @@
 const path = require("path");
 const fs = require("fs");
 const bcrypt = require("bcryptjs");
-const db = require("../models");
+const db = require("../db/models");
 
 module.exports = {
   findAllSubscribe: async (req, res) => {
     const payments = await db.Payment.findAll({
       include: [{ model: db.User }, { model: db.Paket }],
     });
-    res.json(payments);
+    let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl.split("/").slice(0,3).join("/") + "/images/";
+    const pay = [];
+    payments.forEach(p => {
+      p.bukti_bayar  = fullUrl + p.bukti_bayar
+      pay.push(p);
+    });
+    res.json(pay);
   },
   findOneSubscribe: async (req, res) => {
     const payment = await db.Payment.findOne({
       include: [{ model: db.User }, { model: db.Paket }],
       where: { id: req.params.id },
     });
+    let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl.split("/").slice(0,3).join("/") + "/images/";
+    payment.bukti_bayar = fullUrl + payment.bukti_bayar;
     res.json(payment);
   },
   acceptSubscription: async (req, res) => {
@@ -64,7 +72,7 @@ module.exports = {
 const removeImage = (filePath) => {
   // console.log('filePath', filePath)
   // console.log('__dirname', __dirname)
-  filePath = path.join(__dirname, "../images/", filePath);
+  filePath = path.join(__dirname, "../../images/", filePath);
   console.log(filePath);
   fs.unlink(filePath, (err) => console.log(err));
 };

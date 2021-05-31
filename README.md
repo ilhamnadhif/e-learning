@@ -4,6 +4,19 @@ mbuh.
 
 ## Installation
 
+Copy ke file .env
+
+```bash
+PORT = 3000
+
+DB_USER = (user)
+DB_PASSWORD = (password)
+DB_NAME = (nama database)
+NODE_ENV = development
+DB_HOST = 127.0.0.1
+DB_DIALECT = postgres
+```
+
 Use the package manager [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/) to install foobar.
 
 ```bash

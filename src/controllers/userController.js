@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const bcrypt = require("bcryptjs");
 const multer = require("multer");
-const db = require("../models");
+const db = require("../db/models");
 
 const storage = multer.diskStorage({
   destination: function (request, file, callback) {

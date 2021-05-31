@@ -1,13 +1,12 @@
 const express = require("express");
 const app = express();
-const port = 3000;
 
-const router = require("./routes/index");
+require("dotenv").config()
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/v1", router);
+app.use("/api/v1", require("./src/routes"));
 
 //Internal Server Error handler
 app.use(function (err, req, res, next) {
@@ -26,6 +25,7 @@ app.use(function (req, res, next) {
   });
 });
 
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
