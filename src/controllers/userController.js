@@ -182,13 +182,4 @@ module.exports = {
     );
     res.send("succes update biodata");
   },
-  loginUser: async (req, res) => {
-    const user = await db.User.findOne({ where: { email: req.body.email } });
-    if (!user) return res.status(400).send("email is not found");
-
-    const validPass = await bcrypt.compare(req.body.password, user.password);
-    if (!validPass) return res.status(400).send("invalid password");
-
-    res.redirect("/api/v1/user/" + user.id);
-  },
 };

@@ -59,6 +59,7 @@ module.exports = {
     await db.Materi.update(
       {
         title: req.body.title,
+        desc: req.body.desc,
       },
       {
         where: {
