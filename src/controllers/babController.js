@@ -19,9 +19,9 @@ module.exports = {
           model: db.QuizQuestion,
           include: [
             {
-              model: db.QuestionOption
+              model: db.QuestionOption,
             },
-          ]
+          ],
         },
       ],
       where: { id: req.params.id },
@@ -42,8 +42,12 @@ module.exports = {
     res.send("succes update bab");
   },
   deleteBab: async (req, res) => {
+    const bab = await db.Bab.findOne({ where: { id: req.params.id } });
     await db.Bab.destroy({
       where: { id: req.params.id },
+    });
+    await db.SubBab.destroy({
+      where: { babId: bab.id },
     });
     res.send("delete bab succes");
   },

@@ -21,9 +21,9 @@ module.exports = {
               model: db.QuizQuestion,
               include: [
                 {
-                  model: db.QuestionOption
+                  model: db.QuestionOption,
                 },
-              ]
+              ],
             },
           ],
         },
@@ -44,9 +44,9 @@ module.exports = {
               model: db.QuizQuestion,
               include: [
                 {
-                  model: db.QuestionOption
+                  model: db.QuestionOption,
                 },
-              ]
+              ],
             },
           ],
         },
@@ -70,9 +70,21 @@ module.exports = {
     res.send("succes update materi");
   },
   deleteMateri: async (req, res) => {
+    const materi = await db.Materi.findOne({ where: { id: req.params.id } });
     await db.Materi.destroy({
       where: { id: req.params.id },
     });
+    const bab = await db.Bab.findAll({ where: { materiId: materi.id } });
+    await db.Bab.destroy({
+      where: { materiId: materi.id },
+    });
+    const babIdd = bab.map((e) => e.id);
+    babIdd.forEach(async (a) => {
+      await db.SubBab.destroy({
+        where: { babId: a },
+      });
+    });
+    // res.send(babIdd);
     res.send("delete materi succes");
   },
 };
