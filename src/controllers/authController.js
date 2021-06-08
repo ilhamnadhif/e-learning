@@ -25,27 +25,33 @@ module.exports = {
       email: user.email,
     };
     const token = jwt.sign(payload, jwtForgotPasw, { expiresIn: "15m" });
-    let link = req.protocol + '://' + req.get('host') + req.originalUrl.split("/").slice(0,4).join("/") + "/reset-password/" + token;
+    let link =
+      req.protocol +
+      "://" +
+      req.get("host") +
+      req.originalUrl.split("/").slice(0, 4).join("/") +
+      "/reset-password/" +
+      token;
 
-    // const transporter = nodemailer.createTransport({
-    //   service: "gmail",
-    //   auth: {
-    //     user: "backfrontend@gmail.com",
-    //     pass: "nlloieiycmstokfl",
-    //   },
-    // });
-    // try {
-    //   let info = await transporter.sendMail({
-    //     from: "backfrontend@gmail.com",
-    //     to: "backfrontend@gmail.com",
-    //     subject: "Hello",
-    //     text: `Link asdasd ${link}`,
-    //     html: `<a href=${link}>Klik disini</a>`,
-    //   });
-    //   console.log(info);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "backfrontend@gmail.com",
+        pass: "nlloieiycmstokfl",
+      },
+    });
+    try {
+      let info = await transporter.sendMail({
+        from: "backfrontend@gmail.com",
+        to: "backfrontend@gmail.com",
+        subject: "Hello",
+        text: `Link asdasd ${link}`,
+        html: `<a href=${link}>Klik disini</a>`,
+      });
+      console.log(info);
+    } catch (error) {
+      console.log(error);
+    }
 
     res.send(link);
   },
