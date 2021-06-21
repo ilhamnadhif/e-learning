@@ -6,6 +6,12 @@ module.exports = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
+    "dialectOptions": {
+      "ssl": {
+          "require": true,
+          "rejectUnauthorized": false
+      }
+  }
   },
   test: {
     username: "fahmibahtiar",
@@ -13,6 +19,12 @@ module.exports = {
     database: "e-learning_test",
     host: "127.0.0.1",
     dialect: "postgres",
+    "dialectOptions": {
+      "ssl": {
+          "require": true,
+          "rejectUnauthorized": false
+      }
+  }
   },
   production: {
     username: "ansipqujfvdhll",
@@ -20,5 +32,11 @@ module.exports = {
     database: "df0ea0iv54ncki",
     host: "ec2-3-218-71-191.compute-1.amazonaws.com",
     dialect: "postgres",
+    "dialectOptions": {
+      "ssl": {
+          "require": true,
+          "rejectUnauthorized": false
+      }
+  }
   },
 };
