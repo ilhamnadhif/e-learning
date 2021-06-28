@@ -1,6 +1,5 @@
 const path = require("path");
 const fs = require("fs");
-const bcrypt = require("bcryptjs");
 const db = require("../db/models");
 
 module.exports = {
@@ -8,31 +7,22 @@ module.exports = {
     const payments = await db.Payment.findAll({
       include: [{ model: db.User }, { model: db.Paket }],
     });
-    let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl.split("/").slice(0,3).join("/") + "/images/";
-    const pay = [];
-    payments.forEach(p => {
-      p.bukti_bayar  = fullUrl + p.bukti_bayar
-      pay.push(p);
-    });
-    res.json(pay);
+    res.json(payments);
   },
   findOneSubscribe: async (req, res) => {
     const payment = await db.Payment.findOne({
       include: [{ model: db.User }, { model: db.Paket }],
       where: { id: req.params.id },
     });
-    let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl.split("/").slice(0,3).join("/") + "/images/";
-    payment.bukti_bayar = fullUrl + payment.bukti_bayar;
     res.json(payment);
   },
   acceptSubscription: async (req, res) => {
-    const { paketId } = req.body;
     const payment = await db.Payment.findOne({
       where: {
         id: req.params.id,
       },
     });
-    const updatePayment = await db.Payment.update(
+    await db.Payment.update(
       {
         status: "diterima",
       },

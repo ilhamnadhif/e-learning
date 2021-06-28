@@ -1,11 +1,26 @@
+const fs = require("fs");
+const path = require("path");
+const multer = require("multer");
 const db = require("../db/models");
 
+const storage = multer.diskStorage({
+  destination: function (request, file, callback) {
+    callback(null, "./images");
+  },
+
+  filename: function (request, file, callback) {
+    callback(null, Date.now() + "-" + file.originalname);
+  },
+});
+
 module.exports = {
+  upload: multer({
+    storage: storage,
+  }),
   createMateri: async (req, res) => {
-    const savedMateri = await db.Materi.create({
-      title: req.body.title,
-      desc: req.body.desc,
-    });
+    const { title, desc } = req.body;
+    const image = req.file.filename;
+    const savedMateri = await db.Materi.create({ title, desc, image });
     res.json(savedMateri);
   },
   showAllMateri: async (req, res) => {
@@ -56,10 +71,14 @@ module.exports = {
     res.json(findOneMateri);
   },
   editMateri: async (req, res) => {
+    const { title, desc } = req.body;
+    const image = req.file.filename;
+    const materi = await db.Materi.findOne({ where: { id: req.params.id } });
     await db.Materi.update(
       {
-        title: req.body.title,
-        desc: req.body.desc,
+        title,
+        desc,
+        image,
       },
       {
         where: {
@@ -67,6 +86,7 @@ module.exports = {
         },
       }
     );
+    removeImage(materi.image);
     res.send("succes update materi");
   },
   deleteMateri: async (req, res) => {
@@ -84,7 +104,14 @@ module.exports = {
         where: { babId: a },
       });
     });
-    // res.send(babIdd);
+    removeImage(materi.image);
     res.send("delete materi succes");
   },
+};
+const removeImage = (filePath) => {
+  // console.log('filePath', filePath)
+  // console.log('__dirname', __dirname)
+  filePath = path.join(__dirname, "../../images/", filePath);
+  console.log(filePath);
+  fs.unlink(filePath, (err) => console.log(err));
 };

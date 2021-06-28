@@ -14,10 +14,6 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({
-  storage: storage,
-});
-
 module.exports = {
   upload: multer({
     storage: storage,
@@ -70,17 +66,17 @@ module.exports = {
           model: db.QuizUserAnswer,
           include: [
             {
-              model: db.QuizQuestion
+              model: db.QuizQuestion,
             },
             {
               model: db.QuestionOption,
-              as: "option"
+              as: "option",
             },
             {
               model: db.QuestionOption,
-              as: "iscorrect"
+              as: "iscorrect",
             },
-          ]
+          ],
         },
         {
           model: db.Paket,
@@ -98,9 +94,9 @@ module.exports = {
                       model: db.QuizQuestion,
                       include: [
                         {
-                          model: db.QuestionOption
+                          model: db.QuestionOption,
                         },
-                      ]
+                      ],
                     },
                   ],
                 },
@@ -122,17 +118,17 @@ module.exports = {
           model: db.QuizUserAnswer,
           include: [
             {
-              model: db.QuizQuestion
+              model: db.QuizQuestion,
             },
             {
               model: db.QuestionOption,
-              as: "option"
+              as: "option",
             },
             {
               model: db.QuestionOption,
-              as: "iscorrect"
+              as: "iscorrect",
             },
-          ]
+          ],
         },
         {
           model: db.Paket,
@@ -150,9 +146,9 @@ module.exports = {
                       model: db.QuizQuestion,
                       include: [
                         {
-                          model: db.QuestionOption
+                          model: db.QuestionOption,
                         },
-                      ]
+                      ],
                     },
                   ],
                 },
